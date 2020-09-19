@@ -2,12 +2,15 @@ const express = require("express");
 const { Db } = require("mongodb");
 
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
 
 app.use(cors());
 
-const MongoClient = require("mongodb").MongoClient;
+app.use(bodyParser.json());
+
+const { MongoClient, ObjectID } = require("mongodb");
 
 let db;
 
@@ -35,6 +38,23 @@ app.get("/", (req, res) => {
 app.get("/todos", async (req, res) => {
 	const todos = await db.collection("todos").find().toArray();
 	res.json(todos);
+});
+
+app.post("/todos", async (req, res) => {
+	await db.collection("todos").insertOne(req.body);
+	res.json("posted");
+});
+
+app.delete("/todos/:id", async (req, res) => {
+	await db.collection("todos").deleteOne({ _id: ObjectID(req.params.id) });
+	res.json("deleted");
+});
+
+app.put("/todos/:id", async (req, res) => {
+	await db
+		.collection("todos")
+		.replaceOne({ _id: ObjectID(req.params.id) }, req.body);
+	res.json("done undone");
 });
 
 app.listen(3002, () => {
