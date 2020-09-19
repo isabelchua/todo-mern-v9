@@ -80,6 +80,8 @@ const Item = props => {
 		props.fetchTodos();
 	};
 
+	const setEdit = () => {};
+
 	// const editTodo = async () => {
 	// 	await fetch(`http://localhost:3002/todos/${_id}`, {
 	// 		method: "PUT",

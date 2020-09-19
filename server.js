@@ -24,9 +24,9 @@ MongoClient.connect(
 		await db.collection("todos").deleteMany();
 
 		await db.collection("todos").insertMany([
-			{ done: true, desc: "study" },
-			{ done: false, desc: "write" },
-			{ done: true, desc: "execute" }
+			{ done: true, desc: "Write" },
+			{ done: false, desc: "your todos" },
+			{ done: true, desc: "Here" }
 		]);
 	}
 );
